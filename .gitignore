@@ -1,0 +1,26 @@
+# Ignore Backend repo per user request
+backend/
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production build output
+dist/
+**/dist/
+dist-ssr/
+
+# Local env files
+*.local
+.env.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+*.suo
