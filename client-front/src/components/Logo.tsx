@@ -33,26 +33,26 @@ export const Logo: React.FC<LogoProps> = ({
 
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: size === 'sm' ? '8px' : '10px', minWidth: 0 }}>
-      {/* Icon container - cropped to 1:1 square to cleanly show only the MP mark icon */}
+      {/* Logo Image Container - Shows full logo when hideText is false, crops to icon when hideText is true */}
       <div style={{
         position: 'relative',
-        width: currentSize,
         height: currentSize,
+        width: hideText ? currentSize : 'auto',
         borderRadius: '8px',
-        overflow: 'hidden',
         flexShrink: 0,
-        display: 'inline-block'
+        display: 'inline-block',
+        overflow: hideText ? 'hidden' : 'visible',
       }}>
         {/* Light Mode Logo (dark-logo.png) */}
         <img
           src="/dark-logo.png"
           alt="markPocket Logo Light"
           style={{
-            height: '100%',
-            width: 'auto',
-            maxWidth: 'none',
-            objectFit: 'cover',
-            objectPosition: 'left center',
+            height: currentSize,
+            width: hideText ? 'auto' : 'auto',
+            maxWidth: hideText ? 'none' : '180px',
+            objectFit: hideText ? 'cover' : 'contain',
+            objectPosition: hideText ? 'left center' : 'center',
             borderRadius: '8px',
             display: 'block',
             opacity: showWhite ? 0 : 1,
@@ -68,11 +68,10 @@ export const Logo: React.FC<LogoProps> = ({
             position: 'absolute',
             top: 0,
             left: 0,
-            height: '100%',
-            width: 'auto',
-            maxWidth: 'none',
-            objectFit: 'cover',
-            objectPosition: 'left center',
+            height: currentSize,
+            width: hideText ? 'auto' : '100%',
+            objectFit: hideText ? 'cover' : 'contain',
+            objectPosition: hideText ? 'left center' : 'center',
             borderRadius: '8px',
             opacity: showWhite ? 1 : 0,
             transition: 'opacity 0.35s ease-in-out, transform 0.35s ease-in-out',
@@ -82,7 +81,7 @@ export const Logo: React.FC<LogoProps> = ({
         />
       </div>
 
-      {!hideText && (
+      {subtitle && (
         <span style={{
           fontWeight: 800,
           fontSize: fontSizes[size],
@@ -98,21 +97,17 @@ export const Logo: React.FC<LogoProps> = ({
           textOverflow: 'ellipsis',
           transition: 'color 0.35s ease-in-out',
         }}>
-          <span>mark</span>
-          <span style={{ color: showWhite ? '#FFD166' : 'var(--brand-dark)', fontWeight: 900, transition: 'color 0.35s ease-in-out' }}>Pocket</span>
-          {subtitle && (
-            <span style={{
-              color: showWhite ? '#FFFFFF' : 'var(--text-dark)',
-              fontWeight: 700,
-              fontSize: '0.82em',
-              opacity: 0.85,
-              marginLeft: '3px',
-              transition: 'color 0.35s ease-in-out',
-              letterSpacing: '-0.01em'
-            }}>
-              {subtitle}
-            </span>
-          )}
+          <span style={{
+            color: showWhite ? '#FFFFFF' : 'var(--text-dark)',
+            fontWeight: 700,
+            fontSize: '0.82em',
+            opacity: 0.85,
+            marginLeft: '3px',
+            transition: 'color 0.35s ease-in-out',
+            letterSpacing: '-0.01em'
+          }}>
+            {subtitle}
+          </span>
         </span>
       )}
     </div>
